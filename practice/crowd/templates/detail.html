@@ -1,6 +1,3 @@
-{{details.title}} <!--객체 바로 접근-->
-{{details.description}}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +14,9 @@
     <p>등록자: {{product.writer}}</p>
     <p>마감 날짜: {{product.expiry_date}}</p>
     <p>{{product.description}}</p>
+    <p>목표 금액(원): {{product.target_price}}</p>
+    <p>1회 펀딩 금액(원): {{product.funding_cost}}</p>
     <p><a href="{% url 'home' %}">홈으로</a></p>
-
+    <p><a href="{% url 'edit' product.id %}">수정하기</a></p>
 </body>
 </html>

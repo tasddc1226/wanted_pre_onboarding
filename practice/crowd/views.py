@@ -25,4 +25,16 @@ def detail(request, id):
     product = get_object_or_404(Product, pk=id)
     return render(request, 'detail.html', {'product': product})
 
-    
+def edit(request, id):
+    edit_product = Product.objects.get(id=id)
+    return render(request, 'edit.html', {'product': edit_product})
+
+def update(request, id):
+    update_product = Product.objects.get(id=id)
+    update_product.title = request.POST['title']
+    update_product.writer = request.POST['writer']
+    update_product.description = request.POST['description']
+    update_product.expiry_date = request.POST['expiry_date']
+    update_product.funding_cost = request.POST['funding_cost']
+    update_product.save()
+    return redirect('detail', update_product.id)
