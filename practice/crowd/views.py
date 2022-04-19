@@ -38,3 +38,8 @@ def update(request, id):
     update_product.funding_cost = request.POST['funding_cost']
     update_product.save()
     return redirect('detail', update_product.id)
+
+def delete(request, id):
+    delete_product = Product.objects.get(id=id)
+    delete_product.delete()
+    return redirect('home')
