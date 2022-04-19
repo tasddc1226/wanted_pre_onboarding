@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'practice.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_test',
+        'NAME': 'crowd',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': 'localhost',
