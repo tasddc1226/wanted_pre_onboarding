@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프리온 보딩 과제</title>
+    <style>
+        body{text-align:center;}
+    </style>
+</head>
+<body>
+    <h1>크라우드 펀딩 서비스</h1>
+    <button><a href="{% url 'new' %}">상품 등록하기</a></button>
+    {% for product in products %}
+        <h3>{{product.title}}</h3>
+        <p>{{product.writer}}</p>
+        <p>{{product.expiry_date}}</p>
+        <p>{{product.summary}} <a href="{% url 'detail' product.id %}">...더보기</a></p>
+    {% endfor %}
+</body>
+</html>
