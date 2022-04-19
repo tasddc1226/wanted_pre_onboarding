@@ -1,45 +1,53 @@
 from django.shortcuts import get_object_or_404, redirect, render
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import status
+from django.http import Http404
+from .serializers import ProductSerializer
 
 from .models import *
 from .form import *
 
-# Create your views here.
-def home(request):
-    products = Product.objects.all()
-    return render(request, 'home.html', {'products': products})
+class ProductListAPI(APIView):
+    # 모든 상품의 목록 가져오기
+    def get(self, request):
+        products = Product.objects.all()
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)
+    
+    # 새로운 상품 등록하기
+    def post(self, request):
+        serializer = ProductSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-def new(request):
-    form = ProductForm()
-    return render(request, 'new.html', {'form' : form})
+class ProductDetail(APIView):
+    # Product 객체 가져오기
+    def get_object(self, pk):
+        try:
+            return Product.objects.get(pk=pk)
+        except Product.DoesNotExist:
+            raise Http404
+    
+    # 한 상품의 detail 확인
+    def get(self, request, pk, format=None):
+        product = self.get_object(pk)
+        serializer = ProductSerializer(product)
+        return Response(serializer.data)
 
-def create(request):
-    form = ProductForm(request.POST, request.FILES)
-    if form.is_valid():
-        new_product = form.save(commit=False)
-        new_product.save()
-        return redirect('detail', new_product.id)
-    return redirect('home')
-
-def detail(request, id):
-    # details = Product.objects.get(pk=id)
-    product = get_object_or_404(Product, pk=id)
-    return render(request, 'detail.html', {'product': product})
-
-def edit(request, id):
-    edit_product = Product.objects.get(id=id)
-    return render(request, 'edit.html', {'product': edit_product})
-
-def update(request, id):
-    update_product = Product.objects.get(id=id)
-    update_product.title = request.POST['title']
-    update_product.writer = request.POST['writer']
-    update_product.description = request.POST['description']
-    update_product.expiry_date = request.POST['expiry_date']
-    update_product.funding_cost = request.POST['funding_cost']
-    update_product.save()
-    return redirect('detail', update_product.id)
-
-def delete(request, id):
-    delete_product = Product.objects.get(id=id)
-    delete_product.delete()
-    return redirect('home')
+    # 상품 정보 수정하기
+    def put(self, request, pk, format=None):
+        product = self.get_object(pk)
+        serializer = ProductSerializer(product, data=request.data)
+        if (serializer.is_valid()):
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    # 상품 삭제하기
+    def delete(self, request, pk, format=None):
+        product = self.get_object(pk)
+        product.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
