@@ -67,10 +67,10 @@
 - 상품 펀딩 PUT 요청 : `http://localhost:8000/product/11/funding`
 
   - 요청 전
-![Screen Shot 2022-04-20 at 2 48 42 PM](https://user-images.githubusercontent.com/55699007/164159245-4c8555ac-b296-4b5a-91f9-67238d042c54.png)
+  - ![Screen Shot 2022-04-20 at 2 48 42 PM](https://user-images.githubusercontent.com/55699007/164159245-4c8555ac-b296-4b5a-91f9-67238d042c54.png)
 
   - 요청 후 : 총 펀딩 금액, 달성률, 참여자 수 변경
-![Screen Shot 2022-04-20 at 2 50 32 PM](https://user-images.githubusercontent.com/55699007/164159512-7490532b-8ef6-4753-bf88-9fa83da6b0c3.png)
+  - ![Screen Shot 2022-04-20 at 2 50 32 PM](https://user-images.githubusercontent.com/55699007/164159512-7490532b-8ef6-4753-bf88-9fa83da6b0c3.png)
 
 
 
