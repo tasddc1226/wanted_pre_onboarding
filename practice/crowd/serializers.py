@@ -39,3 +39,8 @@ class ProductDetailSerializer(serializers.ModelSerializer):
             'expiry_date' : {'write_only': True},
             'funding_cost': {'write_only': True}
         }
+
+class ProductFundingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = []
