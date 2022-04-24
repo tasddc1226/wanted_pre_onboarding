@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'practice.urls'
+ROOT_URLCONF = 'practice.urls' # config.urls
 
 TEMPLATES = [
     {
@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'practice.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'crowd',
+        'NAME': 'wanted_crowd',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': 'localhost',
@@ -128,3 +128,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'users.User'
